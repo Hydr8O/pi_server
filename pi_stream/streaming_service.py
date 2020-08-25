@@ -5,11 +5,11 @@ from .alarm_service import Alarm
 
 class Streamer:
     '''Takes frames from the camera and processes them''' 
-    def __init__(self, camera, frames_with_no_detections_threshold=30):
+    def __init__(self, camera, detector, frames_with_no_detections_threshold=30):
         self._camera = camera
         self._current_frame = None
         self._alarm = Alarm(frames_with_no_detections_threshold)
-        self._detector = HumanDetector(scale=1.065, win_stride=(8, 8))
+        self._detector = detector
      
     
     def stream(self):
@@ -21,7 +21,7 @@ class Streamer:
             if self._alarm.is_needed_to_refresh():
                 self._alarm.refresh()
                 
-            if self._detector.is_human() == True:
+            if self._detector.is_object() == True:
                 self._alarm.set_frames_with_no_detections_to_zero()
                 self._alarm.sound()
             else:
@@ -36,7 +36,7 @@ class Streamer:
     def _draw_detections_on_current_frame(self):
         '''Draws detected objects on the current frame''' 
         image = image_from_bytes(self._current_frame)
-        detected = self._detector.detect_image(image)
+        detected = self._detector.detect_image(image, crop=(700, 350, 500, 300))
         self._current_frame = image_to_bytes(detected, '.JPEG')
         
     def _construct_next_frame(self):
