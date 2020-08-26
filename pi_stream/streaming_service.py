@@ -15,7 +15,7 @@ class Streamer:
         '''Starts to stream video from camera'''
         while True:
             self._set_current_frame()
-            self._draw_detections_on_current_frame()
+            self._detect_objects_on_current_frame()
             
             if self._alarm.is_needed_to_refresh():
                 self._alarm.refresh()
@@ -29,47 +29,17 @@ class Streamer:
             next_frame = self._construct_next_frame()
             yield next_frame
     
-
-    def _process_frame(self):
-        self._set_current_frame()
-        self._draw_detections_on_current_frame()
-            
-        if self._alarm.is_needed_to_refresh():
-            self._alarm.refresh()
-                
-        if self._detector.is_human() == True:
-            self._alarm.set_frames_with_no_detections_to_zero()
-            self._alarm.sound()
-        else:
-            self._alarm.increment_frames_with_no_detections()
-    
-    def start_frame_processing(self):
-        '''Root stream which always works'''
-        while True:
-            print('streaming')
-            self._set_current_frame()
-            self._draw_detections_on_current_frame()
-            
-            if self._alarm.is_needed_to_refresh():
-                self._alarm.refresh()
-                
-            if self._detector.is_object() == True:
-                self._alarm.set_frames_with_no_detections_to_zero()
-                self._alarm.sound()
-            else:
-                self._alarm.increment_frames_with_no_detections()
-    
-
     def _set_current_frame(self):
         '''Gets frame from camera and sets it as current frame'''
         self._current_frame = self._camera.get_frame()
                     
-    def _draw_detections_on_current_frame(self):
-        '''Draws detected objects on the current frame''' 
+    def _detect_objects_on_current_frame(self):
+        '''Detects objects on the current frame''' 
         image = image_from_bytes(self._current_frame)
         detected = self._detector.detect_image(image, crop=(700, 350, 500, 300))
         self._current_frame = image_to_bytes(detected, '.JPEG')
         
     def _construct_next_frame(self):
+        '''Turns current frame insto the right format and returns it'''
         return (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + self._current_frame + b'\r\n')

@@ -46,6 +46,9 @@ class CameraEvent(object):
         if remove:
             del self.events[remove]
 
+    def get_clients(self):
+        return self.events.items()
+    
     def clear(self):
         """Invoked from each client's thread after a frame was processed."""
         self.events[get_ident()][0].clear()
@@ -79,6 +82,9 @@ class BaseCamera(object):
         BaseCamera.event.clear()
 
         return BaseCamera.frame
+
+    def get_clients(self):
+        return BaseCamera.event.get_clients()
 
     @staticmethod
     def frames():
