@@ -8,7 +8,7 @@ def stream_detections(camera, detector):
     alarm = Alarm(frames_with_no_detections_threshold=30, melody='ring.wav')
     for frame in streamer.stream():
         frame_with_detections = _detect_objects_on_frame(detector, frame)
-        alarm.perform_alarm_cycle()
+        alarm.perform_alarm_cycle(detector.is_object())
         yield _construct_next_frame(frame_with_detections)
  
 def stream(camera):

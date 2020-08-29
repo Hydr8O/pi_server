@@ -9,12 +9,12 @@ class Alarm:
     
     def perform_alarm_cycle(self, is_object):
         '''Performs an alarm cycle including _refreshing and _sounding'''
-        if self._is_needed_to__refresh():
+        if self._is_needed_to_refresh():
             self._refresh()
             
         if is_object == True:
             self._set_frames_with_no_detections_to_zero()
-            self._perform__sound_cycle()
+            self._perform_sound_cycle()
         else:
             self._increment_frames_with_no_detections()
     
@@ -37,7 +37,7 @@ class Alarm:
     
     def _sound(self):
         '''Sounds the alarm''' 
-            #os.system(f'omxplayer -o local {self._melody} &')
+        os.system(f'omxplayer -o local {self._melody} &')
              
     def _set_frames_with_no_detections_to_zero(self):
         self._frames_with_no_detections = 0
