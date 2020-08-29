@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import StreamingHttpResponse
 from django.conf import settings
-#from .opencv_detection_utils.FaceDetector import FaceDetector
+from .opencv_detection_utils.FaceDetector import FaceDetector
 from .camera_service.camera_pi import Camera
 from .streaming_service import stream_detections
 

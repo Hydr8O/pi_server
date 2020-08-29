@@ -1,12 +1,18 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'pi_visitors/css/styles.css' %}" />
     <title>Document</title>
 </head>
 <body>
-    VISITORS
-    <img src="{{ image.image.url }}" alt="">
+    <a href="{% url 'home' %}">На Главную</a>
+    <h1>Зафиксированные Посетители</h1>
+    {% for visitor in visitors %}
+	<p>{{ visitor.detection_time }}</p>
+    	<img src="{{ visitor.image.url }}" alt="" class="cameraImage">
+    {% endfor %}    
 </body>
 </html>

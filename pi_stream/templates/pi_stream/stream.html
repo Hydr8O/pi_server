@@ -1,5 +1,6 @@
 {% extends 'pi_stream/base.html' %}
 {% block content %}
-    <h1>Stream</h1>
-    <img src="{% url 'pi_stream:video_feed' %}">
+    <a href="{% url 'home' %}">На Главную</a>
+    <h1>Видео с камеры</h1>
+    <img src="{% url 'pi_stream:video_feed' %}" class="cameraImage">
 {% endblock %}

@@ -18,7 +18,7 @@ from django.urls import path, include
 from pi_home import views
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('', views.home, name='home'),
     path('admin/', admin.site.urls),
@@ -28,3 +28,4 @@ urlpatterns = [
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += staticfiles_urlpatterns()
