@@ -5,10 +5,9 @@ from .Streamer import Streamer
 from .image_encoding_service import image_from_bytes, image_to_bytes
 from .Alarm import Alarm
 
-def stream_detections(camera, detector):
+def stream_detections(camera, detector, alarm):
     '''Streams frames with detections from camera'''
     streamer = Streamer(camera)
-    alarm = Alarm(frames_with_no_detections_threshold=30, melody='ring.wav')
     for frame in streamer.stream():
         frame_with_detections = _detect_objects_on_frame(detector, frame)
         perform_alarm_cycle(alarm, frame_with_detections, detector.is_object())
