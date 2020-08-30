@@ -1,21 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
     <h1>Домашний сервер</h1>
     <p>Добро пожаловать на домашний сервер. Здесь вы можете понаблюдать за тем, что происходит на улице, а также историю посещений.</p>
-    <ul>
-        <li>
-            <a href="{% url 'pi_stream:stream' %}">Посмотреть что происходит на улице</a>
-        </li>
-        <li>
-            <a href="{% url 'pi_visitors:visitors' %}">Посмотреть историю посещений</a>
-        </li>
-    </ul>
-    
-</body>
-</html>
+{% endblock %}

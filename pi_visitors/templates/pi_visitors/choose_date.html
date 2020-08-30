@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form action="{% url 'pi_visitors:visitors' %}" method="GET" class="form">
+        <div class="form-group mb-medium">
+            <label for="date">Дата посещения:</label>
+            <input type="date" name="date" id="date">
+        </div>
+        <button type="submit" class="button">Посмотреть</button>
+    </form>
+{% endblock %} 

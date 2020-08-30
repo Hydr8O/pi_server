@@ -3,3 +3,4 @@ venv/
 *.mp3
 opencv_detection_utils/
 pi_stream/face-config
+media/

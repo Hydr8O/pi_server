@@ -5,4 +5,7 @@ class VisitorDetection(models.Model):
     image = models.ImageField(upload_to='pi_visitors/images/')
     detection_time = models.DateTimeField(auto_now_add=True)
     
+    class Meta:
+        db_table = 'visitor_detection'
+    
     

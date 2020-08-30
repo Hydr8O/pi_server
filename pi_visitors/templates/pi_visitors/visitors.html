@@ -1,18 +1,19 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'pi_visitors/css/styles.css' %}" />
-    <title>Document</title>
-</head>
-<body>
-    <a href="{% url 'home' %}">На Главную</a>
+{% block content %}
     <h1>Зафиксированные Посетители</h1>
     {% for visitor in visitors %}
-	<p>{{ visitor.detection_time }}</p>
-    	<img src="{{ visitor.image.url }}" alt="" class="cameraImage">
-    {% endfor %}    
-</body>
-</html>
+        <div class="visitor-card">
+            <img src="{{ visitor.image.url }}" alt="" class="cameraImage--visitor cameraImage">
+            <div class="visit-date mt-small">
+                <p class="visit-date__memo">
+                    Дата посещения:
+                </p>
+                <p class="visit-date__date">
+                    {{ visitor.detection_time|date:'d F Y H:i' }}
+                </p>
+            </div>
+            
+        </div>
+    {% endfor %}   
+{% endblock %} 
